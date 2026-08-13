@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Balloon Decoration"
+description = "Landing page responsive para un estudio de decoración con globos y ambientación de celebraciones. Presenta servicios, inspiración visual, paquetes y un formulario de contacto para solicitar presupuestos."
+version = "1.0.0"
+id = "artifacts/balloon-decoration"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21968
+
+[services.development]
+run = "pnpm --filter @workspace/balloon-decoration run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/balloon-decoration", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/balloon-decoration/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21968"
+BASE_PATH = "/"
